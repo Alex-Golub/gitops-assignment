@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+data:
+  .env: |
+    RUNTIME=10
+    TEST=TRUE
+  config: |
+    [default]
+    region=eu-west-1
+    output=json

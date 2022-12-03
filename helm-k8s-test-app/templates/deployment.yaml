@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-assignment
+  labels:
+    app: {{.Values.deployment.labels}}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{.Values.deployment.selector}}
+  template:
+    metadata:
+      labels:
+        app: gitops-assignment
+    spec:
+      containers:
+        - name: gitops-assignment
+          image: {{.Values.image.repository}}:{{.Values.imagetag}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /root/.aws/credentials
+              subPath: credentials
+              readOnly: true
+            - name: config
+              mountPath: /root/.aws/config
+              subPath: config
+              readOnly: true
+            - name: env
+              mountPath: /usr/src/app/.env
+              subPath: .env
+              readOnly: true
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: aws-secret
+        - name: config
+          configMap:
+            name: env-config
+            items:
+              - key: config
+                path: config
+        - name: env
+          configMap:
+            name: env-config
+            items:
+              - key: .env
+                path: .env

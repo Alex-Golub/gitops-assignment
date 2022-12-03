@@ -1,0 +1,13 @@
+image:
+  repository: mrdrprof/gitops-assignment
+  tag: latest
+deployment:
+  labels: gitops-assignment
+  selector: gitops-assignment
+service:
+  name: srv-gitops-assignment
+  type: LoadBalancer
+  selector: gitops-assignment
+  port: 80
+  targetPort: 8080
+imagetag: 45
