@@ -5,7 +5,6 @@ metadata:
 data:
   .env: |
     RUNTIME=10
-    TEST=TRUE
   config: |
     [default]
     region=eu-west-1

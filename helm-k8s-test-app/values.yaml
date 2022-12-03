@@ -10,4 +10,4 @@ service:
   selector: gitops-assignment
   port: 80
   targetPort: 8080
-imagetag: 45
+imagetag: 1
