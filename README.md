@@ -88,8 +88,11 @@ Create EC2 Instances for `Jenkins` and `Minikube Cluster`:
     ```
 
 3. Commit source code to GitHub
-4. Create `GitHub` and `DockerHub` temp token to be used with Jenkins global credentials(see [jenkins-github-cred](attachments/jenkins-github-cred.jpg) and [jenkins-dockerhub-cred](attachments/jenkins-dockerhub-cred.jpg) resulting [global-credentials](attachments/global-credentials.jpg))
+4. Create `GitHub` (Personal access tokens) and `DockerHub` (Access Token) to be used with Jenkins global credentials(see [jenkins-github-cred](attachments/jenkins-github-cred.jpg) and [jenkins-dockerhub-cred](attachments/jenkins-dockerhub-cred.jpg) resulting [global-credentials](attachments/global-credentials.jpg))
 5. Configure pipeline (see [jenkins-pipeline](attachments/jenkins-pipeline.jpg))
+6. Configure GitHub webhook
+7. Install `ArgoCD` on the Minikube cluster following [getting-started guide](https://argo-cd.readthedocs.io/en/stable/getting_started/#getting-started)
+8. Connect repo and then create `NEW APP` in `ArgoCD` ([argocd-connect-repo](attachments/argocd-connect-repo.jpg), [argo-cd-config](attachments\argocd-config.jpg))
 
 ### References
 
@@ -99,3 +102,6 @@ Create EC2 Instances for `Jenkins` and `Minikube Cluster`:
 - [Minikube docs](https://minikube.sigs.k8s.io/docs/start/)
 - [minikube start](https://minikube.sigs.k8s.io/docs/start/)
 - [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Configure GitHub Webhook](https://plugins.jenkins.io/github/)
+- [DockerHub - Manage access tokens](https://docs.docker.com/docker-hub/access-tokens/)
+- 
