@@ -1,6 +1,6 @@
 image:
   repository: mrdrprof/gitops-assignment
-  tag: latest
+  tag: 1
 deployment:
   labels: gitops-assignment
   selector: gitops-assignment
@@ -10,4 +10,3 @@ service:
   selector: gitops-assignment
   port: 80
   targetPort: 8080
-imagetag: 1
