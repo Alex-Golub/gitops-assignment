@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitops-assignment
+  name: gitops-assignment:21
   labels:
     app: {{.Values.deployment.labels}}
 spec:
@@ -12,10 +12,10 @@ spec:
   template:
     metadata:
       labels:
-        app: gitops-assignment
+        app: gitops-assignment:21
     spec:
       containers:
-        - name: gitops-assignment
+        - name: gitops-assignment:21
           image: {{.Values.image.repository}}:{{.Values.imagetag}}
           imagePullPolicy: Always
           ports:
