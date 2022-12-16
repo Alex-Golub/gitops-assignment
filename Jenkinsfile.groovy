@@ -8,7 +8,6 @@ pipeline {
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"
         REGISTRY_CREDINTIALS = 'dockerhub'
         VALUES_LOCATION = 'helm-k8s-test-app/values.yaml'
-        DEPLOYMENT_LOCATION = 'helm-k8s-test-app/templates/deployment.yaml'
     }
 
     stages {
@@ -45,54 +44,29 @@ pipeline {
             }
         }
 
-        stage('Updating deployment file') {
+        stage('Update docker image tag') {
             steps {
                 sh "sed -i 's/tag: .*/tag: ${IMAGE_TAG}/g' ${VALUES_LOCATION}"
             }
         }
-
-        stage('Update deployment and merge back to Master') {
+        
+        stage('Commit to development branch') {
             steps {
                 script {
                     withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
                         sh """
                             git config --global user.name "jenkins"
                             git config --global user.email "jenkins@jenkins.com"
+                            git config --global pull.rebase false
                             git switch -c development
+                            git pull origin development
                             git add .
-                            git commit -m 'Updated deployment file by Jenkins'
-                            git switch -
+                            git commit -m 'Updated image tag by Jenkins'
                             git push -u origin --all
                             """
                     }
                 }
             }
         }
-
-        // stage('MERGE to master branch') {
-        //     cleanWs()
-        //     checkout scm
-        //     sh 'cat /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/values.yaml'
-        //     sh "sed '/imagetag/d' /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/values.yaml > /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/temp.yaml  "
-        //     sh "echo imagetag: ${BUILD_NUMBER} >> /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/temp.yaml"
-        //     sh 'cat /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/temp.yaml > /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/values.yaml'
-        //     sh 'cat /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/values.yaml'
-        //     sh 'rm /var/jenkins_home/workspace/gitops-assignment-pipeline/helm-k8s-test-app/temp.yaml'
-
-        //     script {
-        //         sshagent(credentials: ['git']) {
-        //             sh """
-        //                     git config user.email "jenkins@email.com"
-        //                     git config user.name "MahMan Jenkins"
-        //                     git checkout development
-        //                     git add .
-        //                     git commit -m 'development'
-        //                     git checkout master
-        //                     git merge development
-        //                     git push -u origin --all
-        //                 """
-        //         }
-        //     }
-        // }
     }
 }
