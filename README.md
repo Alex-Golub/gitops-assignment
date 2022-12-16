@@ -88,11 +88,14 @@ Create EC2 Instances for `Jenkins` and `Minikube Cluster`:
     ```
 
 3. Commit source code to GitHub
-4. Create `GitHub` (Personal access tokens) and `DockerHub` (Access Token) to be used with Jenkins global credentials(see [jenkins-github-cred](attachments/jenkins-github-cred.jpg) and [jenkins-dockerhub-cred](attachments/jenkins-dockerhub-cred.jpg) resulting [global-credentials](attachments/global-credentials.jpg))
-5. Configure pipeline (see [jenkins-pipeline](attachments/jenkins-pipeline.jpg))
-6. Configure GitHub webhook
+4. Create `GitHub` (Personal access tokens) and `DockerHub` (Access Token) to be used with Jenkins global credentials (see: [jenkins-github-cred](attachments/jenkins-github-cred.jpg) and [jenkins-dockerhub-cred](attachments/jenkins-dockerhub-cred.jpg) resulting [global-credentials](attachments/global-credentials.jpg))
+5. Configure pipeline (see: [jenkins-pipeline](attachments/jenkins-pipeline.jpg))
+6. [Configure GitHub Webhook](https://plugins.jenkins.io/github/)
 7. Install `ArgoCD` on the Minikube cluster following [getting-started guide](https://argo-cd.readthedocs.io/en/stable/getting_started/#getting-started)
-8. Connect repo and then create `NEW APP` in `ArgoCD` ([argocd-connect-repo](attachments/argocd-connect-repo.jpg), [argo-cd-config](attachments\argocd-config.jpg))
+8. In ArgoCD, connect repo and then create `NEW APP` (see: [argocd-connect-repo](attachments/argocd-connect-repo.jpg), [argo-cd-config](attachments\argocd-config.jpg))
+9. Add AWS credentials (Base64 encoded into `helm-k8s-test-app/templates/secret.yaml`) and push code to GitHub (use `credentials` template file in root project)
+10. Manually merge `development` branch into master ([jenkins-pipeline](attachments/jenkins-pipeline-2.jpg), [development branch merged to master](attachments/github-merge.jpg))
+11. Check `ArgoCD` is synchronized and script in running ([argocd-in-action](attachments/argocd-in-action.jpg), [running-script-in-action](attachments/running-script-in-action.jpg))
 
 ### References
 
@@ -104,4 +107,4 @@ Create EC2 Instances for `Jenkins` and `Minikube Cluster`:
 - [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Configure GitHub Webhook](https://plugins.jenkins.io/github/)
 - [DockerHub - Manage access tokens](https://docs.docker.com/docker-hub/access-tokens/)
-- 
+- [Base64 encode/decode](https://www.base64encode.org/)
