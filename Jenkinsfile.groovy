@@ -57,9 +57,9 @@ pipeline {
                         sh """
                             git config --global user.name "jenkins"
                             git config --global user.email "jenkins@jenkins.com"
-                            git config --global pull.rebase false
-                            git switch -c development
-                            git pull origin development
+                            git stash
+                            git switch development
+                            git stash pop
                             git add .
                             git commit -m 'Updated image tag by Jenkins'
                             git push -u origin --all
