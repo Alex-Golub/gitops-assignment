@@ -62,7 +62,6 @@ pipeline {
                             git config --global user.email "jenkins@jenkins.com"
                             git add .
                             git commit -m 'Updated image tag by Jenkins'
-                            git push --set-upstream origin development
                             """
                     }
                 }
@@ -70,4 +69,3 @@ pipeline {
         }
     }
 }
- 
