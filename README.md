@@ -1,5 +1,5 @@
 # GitOps Assignment
-
+ 
 ## Functional Specification
 
 ![](attachments/use-case.png)
