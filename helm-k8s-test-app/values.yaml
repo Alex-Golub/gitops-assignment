@@ -1,6 +1,6 @@
 image:
   repository: mrdrprof/gitops-assignment
-  tag: 118
+  tag: 119
 deployment:
   labels: gitops-assignment
   selector: gitops-assignment
