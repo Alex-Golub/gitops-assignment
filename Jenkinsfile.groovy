@@ -63,7 +63,6 @@ pipeline {
                             git add .
                             git commit -m 'Updated image tag by Jenkins'
                             git push --set-upstream origin development
-                            """
                     }
                 }
             }
