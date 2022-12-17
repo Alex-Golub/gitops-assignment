@@ -21,7 +21,10 @@ pipeline {
 
         stage('Checkout SCM') {
             steps {
-                git(credentialsId: 'github', url: 'https://github.com/Alex-Golub/gitops-assignment', branch: 'master')
+                git(credentialsId: 'github',
+                        url: 'https://github.com/Alex-Golub/gitops-assignment',
+                        branch: 'development'
+                )
             }
         }
 
@@ -50,20 +53,16 @@ pipeline {
             }
         }
 
-        stage('Commit to development branch') {
+        stage('Push changes back to development branch') {
             steps {
                 script {
                     withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
                         sh """
                             git config --global user.name "jenkins"
                             git config --global user.email "jenkins@jenkins.com"
-                            git stash
-                            git switch -c development
-                            git merge master
-                            git stash pop
                             git add .
                             git commit -m 'Updated image tag by Jenkins'
-                            git push -u origin --all
+                            git push
                             """
                     }
                 }
